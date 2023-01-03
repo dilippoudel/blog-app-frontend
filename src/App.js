@@ -8,6 +8,9 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [url, setUrl] = useState('')
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
   useEffect(() => {
     const loggedUserJSON = localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
@@ -63,9 +66,55 @@ const App = () => {
       </div>
     )
   }
+  const blogSubmitHandle = async (e) => {
+    e.preventDefault()
+    try {
+      const data = await blogService.create({ url, author, title })
+      console.log('submitted', data)
+      setAuthor('')
+      setUrl('')
+      setTitle('')
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const blogPostForm = () => (
+    <div>
+      <h2>Create new</h2>
+      <form onSubmit={blogSubmitHandle}>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />{' '}
+        <br />
+        <label htmlFor="author">Author</label>
+        <input
+          type="text"
+          name="author"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+        />
+        <br />
+        <label htmlFor="url">url</label>
+        <input
+          type="text"
+          name="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <br />
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  )
 
   return (
     <div>
+      {blogPostForm()}
       <h2>blogs</h2>
       <p>{user.name} is logged in</p>
       <button
