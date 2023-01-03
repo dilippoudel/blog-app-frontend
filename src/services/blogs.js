@@ -1,14 +1,21 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
-const baseUrl = '/api/blogs'
+const baseUrl = 'http://localhost:5000/api/blogs'
 // eslint-disable-next-line no-unused-vars
 let token = null
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
-const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then((response) => response.data)
+const getAll = async () => {
+  const response = await axios.get(baseUrl)
+  return response.data
+}
+const create = async (newBlog) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.post(baseUrl, newBlog, config)
+  return response.data
 }
 
-export default { getAll, setToken }
+export default { getAll, setToken, create }
