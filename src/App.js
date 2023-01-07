@@ -69,7 +69,6 @@ const App = () => {
       setTimeout(() => setNotification(null), 3000)
     }
   }
-
   return (
     <div>
       <h1>Blog post Application</h1>
@@ -96,7 +95,12 @@ const App = () => {
           {blogs
             .sort((a, b) => b.likes - a.likes)
             .map((blog) => (
-              <Blog key={blog.id} blog={blog} blogId={blog.id} />
+              <Blog
+                key={blog.id}
+                blog={blog}
+                blogId={blog.id}
+                user={user.user_id}
+              />
             ))}
         </>
       )}
