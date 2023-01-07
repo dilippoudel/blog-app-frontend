@@ -1,12 +1,15 @@
 import { useState } from 'react'
-const BlogPostForm = ({ blogSubmitHandle }) => {
+const BlogPostForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
   const addBlog = (e) => {
     e.preventDefault()
-    blogSubmitHandle(url, author, title)
+    onSubmit(url, author, title)
+    setAuthor('')
+    setTitle('')
+    setUrl('')
   }
   return (
     <div>
