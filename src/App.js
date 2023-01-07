@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import BlogPostForm from './components/BlogForm/BlogForm'
+import LoginForm from './components/Login/Login'
 import Notification from './components/Notification/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState(null)
   useEffect(() => {
@@ -22,8 +21,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
   }, [])
-  const logInHandle = async (e) => {
-    e.preventDefault()
+  const logInHandle = async (username, password) => {
     try {
       const loggedInUser = await loginService.login({ username, password })
       setUser(loggedInUser)
@@ -38,8 +36,6 @@ const App = () => {
       }
       setNotification(newMessage)
       setTimeout(() => setNotification(null), 3000)
-      setUsername('')
-      setPassword('')
     } catch (error) {
       const newMessage = {
         ...notification,
@@ -79,26 +75,7 @@ const App = () => {
       <Notification message={notification} />
       {user === null ? (
         <div>
-          <h2>Log in to the application</h2>
-          <form onSubmit={logInHandle}>
-            <div>
-              <label htmlFor="">Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button type="submit">Login</button>
-          </form>
+          <LoginForm onSubmit={logInHandle} />
         </div>
       ) : (
         <div>
