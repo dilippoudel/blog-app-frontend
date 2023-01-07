@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 const BlogPostForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -43,6 +44,9 @@ const BlogPostForm = ({ onSubmit }) => {
       </form>
     </div>
   )
+}
+BlogPostForm.prototype = {
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default BlogPostForm
