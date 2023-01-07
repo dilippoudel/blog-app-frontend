@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import blogService from '../../services/blogs'
+import PropTypes from 'prop-types'
 import './Blog.css'
 const Blog = ({ blog, blogId, user }) => {
-  console.log('blog is ', blog)
   const [visible, setVisible] = useState(false)
   const showWhenVisible = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
@@ -19,8 +19,6 @@ const Blog = ({ blog, blogId, user }) => {
       await blogService.deleteBlogById(id)
     }
   }
-  console.log('blog is', blog)
-
   return (
     <div className="blog_container">
       <div className="blog_title">
@@ -46,5 +44,9 @@ const Blog = ({ blog, blogId, user }) => {
     </div>
   )
 }
-
+Blog.prototype = {
+  blog: PropTypes.object.isRequired,
+  blogId: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
+}
 export default Blog
