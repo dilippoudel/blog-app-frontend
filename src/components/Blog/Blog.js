@@ -1,13 +1,18 @@
 import { useState } from 'react'
+import blogService from '../../services/blogs'
 import './Blog.css'
-const Blog = ({ blog }) => {
+const Blog = ({ blog, blogId }) => {
   const [visible, setVisible] = useState(false)
   const showWhenVisible = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
     setVisible(!visible)
   }
   const buttonText = visible ? 'hide' : 'show'
-
+  const likeUpdateHandler = async (prevLike) => {
+    const newLike = { likes: prevLike + 1 }
+    const response = await blogService.updateLike(blogId, newLike)
+    return response.data
+  }
   return (
     <div className="blog_container">
       <div className="blog_title">
@@ -17,10 +22,11 @@ const Blog = ({ blog }) => {
       </div>
       <div style={showWhenVisible}>
         <p>
-          <a href="#">{blog.url}</a>
+          <a href="http:localhost:30000">{blog.url}</a>
         </p>
         <p>
-          Likes: {blog.likes} <button>Like</button>
+          Likes: {blog.likes}{' '}
+          <button onClick={() => likeUpdateHandler(blog.likes)}>Like</button>
         </p>
         <p>
           <b>{blog.author}</b>{' '}
