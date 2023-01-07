@@ -1,6 +1,6 @@
 import './Notification.css'
 const Notification = ({ message }) => {
-  if (message == null) {
+  if (message === null) {
     return null
   }
   return (

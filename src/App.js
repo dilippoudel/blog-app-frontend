@@ -33,14 +33,14 @@ const App = () => {
       blogService.setToken(loggedInUser.token)
       const newMessage = {
         ...notification,
-        success: `welcome back`,
+        success: 'welcome back',
       }
       setNotification(newMessage)
       setTimeout(() => setNotification(null), 3000)
     } catch (error) {
       const newMessage = {
         ...notification,
-        error: `username or password invalid`,
+        error: 'username or password invalid',
       }
       setNotification(newMessage)
       setTimeout(() => {
@@ -63,7 +63,7 @@ const App = () => {
     } catch (exception) {
       const newMessage = {
         ...notification,
-        error: `Blog validation error`,
+        error: 'Blog validation error',
       }
       setNotification(newMessage)
       setTimeout(() => setNotification(null), 3000)

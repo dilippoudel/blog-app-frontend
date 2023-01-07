@@ -1,7 +1,5 @@
-/* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
 const baseUrl = 'http://localhost:5000/api/blogs'
-// eslint-disable-next-line no-unused-vars
 let token = null
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
@@ -31,5 +29,10 @@ const deleteBlogById = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, config)
   return response.data
 }
-
-export default { getAll, setToken, create, updateLike, deleteBlogById }
+export default {
+  getAll,
+  create,
+  updateLike,
+  deleteBlogById,
+  setToken,
+}
