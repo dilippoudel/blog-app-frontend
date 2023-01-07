@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import Blog from './components/Blog/Blog'
 import BlogPostForm from './components/BlogForm/BlogForm'
 import LoginForm from './components/Login/Login'
 import Notification from './components/Notification/Notification'
+import Togglable from './components/Togglable/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -78,8 +79,10 @@ const App = () => {
           <LoginForm onSubmit={logInHandle} />
         </div>
       ) : (
-        <div>
-          <BlogPostForm onSubmit={blogSubmitHandle} />
+        <>
+          <Togglable buttonLabel="Create new Blog">
+            <BlogPostForm onSubmit={blogSubmitHandle} />
+          </Togglable>
           <h2>blogs</h2>
           <p>{user.name} is logged in</p>
           <button
@@ -93,7 +96,7 @@ const App = () => {
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
-        </div>
+        </>
       )}
     </div>
   )
