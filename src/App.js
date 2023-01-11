@@ -28,7 +28,7 @@ const App = () => {
       setUser(loggedInUser)
       window.localStorage.setItem(
         'loggedBlogappUser',
-        JSON.stringify(loggedInUser),
+        JSON.stringify(loggedInUser)
       )
       blogService.setToken(loggedInUser.token)
       const newMessage = {

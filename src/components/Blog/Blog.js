@@ -1,21 +1,21 @@
-import { useState } from "react";
-import blogService from "../../services/blogs";
-import PropTypes from "prop-types";
-import "./Blog.css";
+import { useState } from 'react';
+import blogService from '../../services/blogs';
+import PropTypes from 'prop-types';
+import './Blog.css';
 const Blog = ({ blog, blogId, user }) => {
   const [visible, setVisible] = useState(false);
-  const showWhenVisible = { display: visible ? "" : "none" };
+  const showWhenVisible = { display: visible ? '' : 'none' };
   const toggleVisibility = () => {
     setVisible(!visible);
   };
-  const buttonText = visible ? "hide" : "show";
+  const buttonText = visible ? 'hide' : 'show';
   const likeUpdateHandler = async (prevLike) => {
     const newLike = { likes: prevLike + 1 };
     const response = await blogService.updateLike(blogId, newLike);
     return response.data;
   };
   const handleDelete = async (id) => {
-    if (window.confirm("Do you want to delete this blog?")) {
+    if (window.confirm('Do you want to delete this blog?')) {
       await blogService.deleteBlogById(id);
     }
   };
@@ -31,11 +31,11 @@ const Blog = ({ blog, blogId, user }) => {
           <a href="http:localhost:30000">{blog.url}</a>
         </p>
         <p>
-          Likes: {blog.likes}{" "}
+          Likes: {blog.likes}{' '}
           <button onClick={() => likeUpdateHandler(blog.likes)}>Like</button>
         </p>
         <p>
-          <b>{blog.author}</b>{" "}
+          <b>{blog.author}</b>{' '}
         </p>
         {user === blog.user.id && (
           <button onClick={() => handleDelete(blog.id)}>Delete</button>
