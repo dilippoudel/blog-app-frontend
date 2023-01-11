@@ -1,24 +1,19 @@
-import { useState } from 'react';
-import blogService from '../../services/blogs';
-import PropTypes from 'prop-types';
-import './Blog.css';
-const Blog = ({ blog, blogId, user }) => {
-  const [visible, setVisible] = useState(false);
-  const showWhenVisible = { display: visible ? '' : 'none' };
+import { useState } from 'react'
+import blogService from '../../services/blogs'
+import PropTypes from 'prop-types'
+import './Blog.css'
+const Blog = ({ blog, blogId, user, onSubmit }) => {
+  const [visible, setVisible] = useState(false)
+  const showWhenVisible = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
-    setVisible(!visible);
-  };
-  const buttonText = visible ? 'hide' : 'show';
-  const likeUpdateHandler = async (prevLike) => {
-    const newLike = { likes: prevLike + 1 };
-    const response = await blogService.updateLike(blogId, newLike);
-    return response.data;
-  };
+    setVisible(!visible)
+  }
+  const buttonText = visible ? 'hide' : 'show'
   const handleDelete = async (id) => {
     if (window.confirm('Do you want to delete this blog?')) {
-      await blogService.deleteBlogById(id);
+      await blogService.deleteBlogById(id)
     }
-  };
+  }
   return (
     <div className="blog_container">
       <div className="blog_title">
@@ -32,7 +27,7 @@ const Blog = ({ blog, blogId, user }) => {
         </p>
         <p>
           Likes: {blog.likes}{' '}
-          <button onClick={() => likeUpdateHandler(blog.likes)}>Like</button>
+          <button onClick={() => onSubmit(blog.likes, blogId)}>Like</button>
         </p>
         <p>
           <b>{blog.author}</b>{' '}
@@ -42,11 +37,11 @@ const Blog = ({ blog, blogId, user }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 Blog.prototype = {
   blog: PropTypes.object.isRequired,
   blogId: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
-};
-export default Blog;
+}
+export default Blog

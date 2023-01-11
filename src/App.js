@@ -69,6 +69,11 @@ const App = () => {
       setTimeout(() => setNotification(null), 3000)
     }
   }
+  const likeUpdateHandler = async (prevLike, blogId) => {
+    const newLike = { likes: prevLike + 1 }
+    const response = await blogService.updateLike(blogId, newLike)
+    return response.data
+  }
   return (
     <div>
       <h1>Blog post Application</h1>
@@ -101,6 +106,7 @@ const App = () => {
                   blog={blog}
                   blogId={blog.id}
                   user={user.user_id}
+                  onSubmit={likeUpdateHandler}
                 />
               ))}
         </>
