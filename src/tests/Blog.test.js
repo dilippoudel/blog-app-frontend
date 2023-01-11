@@ -31,3 +31,19 @@ describe('<Blogs/>', () => {
     expect(styleAfterButtonClicked).not.toHaveStyle('display: none')
   })
 })
+test("component's  like eventHandler called twice if the like button pressed twice", async () => {
+  const blog = {
+    title: 'React with Redux',
+    author: 'Matti Lutainen',
+    url: 'http://localhost:3000/blog/matti',
+    likes: 24,
+    user: 1,
+  }
+  const mockHandler = jest.fn()
+  const blogContainer = render(
+    <Blog blog={blog} onSubmit={mockHandler} />
+  ).container
+  const button = screen.getByText('Like')
+  await userEvent.dblClick(button)
+  expect(mockHandler.mock.calls).toHaveLength(2)
+})
