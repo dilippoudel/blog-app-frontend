@@ -18,6 +18,7 @@ const BlogPostForm = ({ onSubmit }) => {
       <form onSubmit={addBlog}>
         <label htmlFor="title">Title</label>
         <input
+          id="title"
           type="text"
           name="title"
           placeholder="Enter title"
@@ -27,6 +28,7 @@ const BlogPostForm = ({ onSubmit }) => {
         <br />
         <label htmlFor="author">Author</label>
         <input
+          id="author"
           type="text"
           name="author"
           placeholder="Enter author"
@@ -36,6 +38,7 @@ const BlogPostForm = ({ onSubmit }) => {
         <br />
         <label htmlFor="url">url</label>
         <input
+          id="url"
           type="text"
           name="url"
           placeholder="Enter url"
@@ -43,7 +46,9 @@ const BlogPostForm = ({ onSubmit }) => {
           onChange={(e) => setUrl(e.target.value)}
         />
         <br />
-        <button type="submit">Create</button>
+        <button id="submit" type="submit">
+          Create
+        </button>
       </form>
     </div>
   )
