@@ -46,14 +46,13 @@ const App = () => {
       setTimeout(() => {
         setNotification(null)
       }, 3000)
-
-      console.log('username or password invalid')
     }
   }
 
   const blogSubmitHandle = async (url, author, title) => {
     try {
-      await blogService.create({ url, author, title })
+      const response = await blogService.create({ url, author, title })
+      setBlogs(blogs.concat(response))
       const newMessage = {
         ...notification,
         success: `a new blog ${title} added`,
