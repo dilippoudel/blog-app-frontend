@@ -36,5 +36,21 @@ describe('Blog App', function () {
         .and('have.css', 'border-style', 'solid')
       cy.get('html').should('not.contain', 'Log out')
     })
+    describe('when logged in', function () {
+      beforeEach(function () {
+        cy.login({ username: 'dilip123', password: 'password' })
+      })
+      it('user is logged in', function () {
+        cy.contains('is logged in')
+      })
+      it('A blog can be created', function () {
+        cy.contains('Create new Blog').click()
+        cy.get('#title').type('A jacky John')
+        cy.get('#author').type('Dilip Poudel')
+        cy.get('#url').type('https://localhost/3000/dilip')
+        cy.get('#submit').click()
+        cy.contains('A jacky John')
+      })
+    })
   })
 })
