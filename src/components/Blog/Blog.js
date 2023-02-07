@@ -35,7 +35,9 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
           <b>{blog.author}</b>{' '}
         </p>
         {user === blog.user.id && (
-          <button onClick={() => handleDelete(blog.id)}>Delete</button>
+          <button id="delete" onClick={() => handleDelete(blog.id)}>
+            Delete
+          </button>
         )}
       </div>
     </div>
