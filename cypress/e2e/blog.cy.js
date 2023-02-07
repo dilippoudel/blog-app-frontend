@@ -51,6 +51,29 @@ describe('Blog App', function () {
         cy.get('#submit').click()
         cy.contains('A jacky John')
       })
+      describe('when several blogs exists', function () {
+        beforeEach(function () {
+          cy.createBlog({
+            title: 'First Blog',
+            author: 'Dilip Poudel',
+            url: 'https://localhost:3004/dilip',
+          })
+          cy.createBlog({
+            title: 'Second Blog',
+            author: 'Dilip Poudel',
+            url: 'https://localhost:3005/samita',
+          })
+        })
+        it('should contain list of blogs', function () {
+          cy.contains('Second Blog')
+          cy.contains('First Blog')
+        })
+        it('should update the like of one of those', function () {
+          cy.contains('First Blog').parent().find('button').click()
+          cy.get('#like').click()
+          cy.contains('Likes: 1')
+        })
+      })
     })
   })
 })

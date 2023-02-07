@@ -27,7 +27,9 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
         </p>
         <p>
           Likes: {blog.likes}{' '}
-          <button onClick={() => onSubmit(blog.likes, blogId)}>Like</button>
+          <button id="like" onClick={() => onSubmit(blog.likes, blogId)}>
+            Like
+          </button>
         </p>
         <p>
           <b>{blog.author}</b>{' '}

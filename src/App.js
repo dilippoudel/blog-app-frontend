@@ -19,9 +19,7 @@ const App = () => {
       blogService.setToken(loggedUser.token)
     }
   }, [])
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+
   const logInHandle = async (username, password) => {
     try {
       const loggedInUser = await loginService.login({ username, password })
@@ -73,6 +71,9 @@ const App = () => {
     const response = await blogService.updateLike(blogId, newLike)
     return response.data
   }
+  useEffect(() => {
+    blogService.getAll().then((blogs) => setBlogs(blogs))
+  }, [likeUpdateHandler])
   return (
     <div>
       <h1>Blog post Application</h1>
