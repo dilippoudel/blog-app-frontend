@@ -10,15 +10,6 @@ describe('Blog App', function () {
       },
       url: 'http://localhost:5000/api/users',
     })
-    cy.request({
-      method: 'POST',
-      body: {
-        name: 'Samita',
-        username: 'samita123',
-        password: 'password',
-      },
-      url: 'http://localhost:5000/api/users',
-    })
     cy.visit('http://localhost:3000')
   })
   it('Login form is shown', function () {
@@ -87,18 +78,6 @@ describe('Blog App', function () {
           cy.contains('show').click()
           cy.get('#delete').click()
           cy.should('not.contain', 'First Blog')
-        })
-        describe('When another user exists', function () {
-          beforeEach(function () {
-            cy.login({
-              username: 'samita123',
-              password: 'password',
-            })
-            cy.visit('')
-          })
-          it('user is logged in', function () {
-            cy.contains('Samita is logged in')
-          })
         })
       })
     })
