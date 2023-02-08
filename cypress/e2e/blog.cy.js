@@ -6,6 +6,16 @@ describe('Blog App', function () {
       body: {
         username: 'dilip123',
         password: 'password',
+        name: 'Dilip',
+      },
+      url: 'http://localhost:5000/api/users',
+    })
+    cy.request({
+      method: 'POST',
+      body: {
+        name: 'Samita',
+        username: 'samita123',
+        password: 'password',
       },
       url: 'http://localhost:5000/api/users',
     })
@@ -41,7 +51,7 @@ describe('Blog App', function () {
         cy.login({ username: 'dilip123', password: 'password' })
       })
       it('user is logged in', function () {
-        cy.contains('is logged in')
+        cy.contains('Dilip is logged in')
       })
       it('A blog can be created', function () {
         cy.contains('Create new Blog').click()
@@ -77,6 +87,18 @@ describe('Blog App', function () {
           cy.contains('show').click()
           cy.get('#delete').click()
           cy.should('not.contain', 'First Blog')
+        })
+        describe('When another user exists', function () {
+          beforeEach(function () {
+            cy.login({
+              username: 'samita123',
+              password: 'password',
+            })
+            cy.visit('')
+          })
+          it('user is logged in', function () {
+            cy.contains('Samita is logged in')
+          })
         })
       })
     })
