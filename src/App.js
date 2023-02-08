@@ -69,6 +69,7 @@ const App = () => {
   const likeUpdateHandler = async (prevLike, blogId) => {
     const newLike = { likes: prevLike + 1 }
     await blogService.updateLike(blogId, newLike)
+    blogService.getAll().then((blogs) => setBlogs(blogs))
   }
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))

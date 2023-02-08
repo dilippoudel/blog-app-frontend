@@ -6,7 +6,6 @@ describe('Blog App', function () {
       body: {
         username: 'dilip123',
         password: 'password',
-        name: 'Dilip',
       },
       url: 'http://localhost:5000/api/users',
     })
@@ -78,6 +77,22 @@ describe('Blog App', function () {
           cy.contains('show').click()
           cy.get('#delete').click()
           cy.should('not.contain', 'First Blog')
+        })
+        describe('When another user exists', function () {
+          beforeEach(function () {
+            cy.login({
+              username: 'samita123',
+              password: 'password',
+            })
+            cy.visit('')
+          })
+          it('user is logged in', function () {
+            cy.contains('Samita is logged in')
+          })
+          it('Current log in user can not see delete button', function () {
+            cy.contains('First Blog').parent().find('button').click()
+            cy.should('not.contain', 'Delete')
+          })
         })
       })
     })
