@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import blogService from '../../services/blogs'
 import PropTypes from 'prop-types'
 import './Blog.css'
 const Blog = ({ blog, blogId, user, onSubmit }) => {
-  const [currLike, setCurrLike] = useState(0)
   const [visible, setVisible] = useState(false)
   const showWhenVisible = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
@@ -16,14 +15,6 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
       await blogService.deleteBlogById(id)
     }
   }
-  const handleLikeNumber = (id) => {
-    if (blog.id === id) {
-      setCurrLike(blog.likes + 1)
-    } else {
-      setCurrLike(blog.likes)
-    }
-  }
-  useEffect(handleLikeNumber, [])
   return (
     <div className="blog_container">
       <div className="blog_title">
@@ -36,12 +27,11 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
           <a href="http:localhost:30000">{blog.url}</a>
         </p>
         <p>
-          Likes: {currLike}{' '}
+          Likes: {blog.likes}{' '}
           <button
             id="like"
             onClick={() => {
               onSubmit(blog.likes, blogId)
-              handleLikeNumber(blogId)
             }}
           >
             Like
