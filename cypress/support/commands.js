@@ -25,6 +25,6 @@ Cypress.Commands.add('createBlog', ({ title, author, url }) => {
         JSON.parse(localStorage.getItem('loggedBlogappUser')).token
       }`,
     },
-  })
+  }).then((res) => console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', res))
   cy.visit('')
 })

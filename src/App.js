@@ -106,6 +106,7 @@ const App = () => {
                   blog={blog}
                   blogId={blog.id}
                   user={user.user_id}
+                  userDetails={user}
                   onSubmit={likeUpdateHandler}
                 />
               ))}

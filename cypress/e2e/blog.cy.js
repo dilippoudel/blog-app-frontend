@@ -64,7 +64,7 @@ describe('Blog App', function () {
       describe('when several blogs exists', function () {
         beforeEach(function () {
           cy.createBlog({
-            title: 'First Blog',
+            title: 'FirstBlog',
             author: 'Dilip Poudel',
             url: 'https://localhost:3004/dilip',
           })
@@ -76,10 +76,10 @@ describe('Blog App', function () {
         })
         it('should contain list of blogs', function () {
           cy.contains('Second Blog')
-          cy.contains('First Blog')
+          cy.contains('FirstBlog')
         })
         it('should update the like of one of those', function () {
-          cy.contains('First Blog').parent().find('button').click()
+          cy.contains('FirstBlog').parent().find('button').click()
           cy.get('#like').click()
           cy.contains('Likes: 1')
         })
@@ -100,8 +100,28 @@ describe('Blog App', function () {
             cy.contains('Samita is logged in')
           })
           it('Current log in user can not see delete button', function () {
-            cy.contains('First Blog').parent().find('button').click()
+            cy.contains('FirstBlog').parent().find('button').click()
             cy.should('not.contain', 'Delete')
+          })
+          it('Should check the order of blog based on number of likes', function () {
+            cy.contains('FirstBlog').parent().find('button').click()
+            cy.get('[data-test="test-blog-samita123-FirstBlog"]')
+              .click()
+              .wait(1000)
+              .click()
+              .wait(1000)
+              .click()
+            cy.contains('Second Blog').parent().find('button').click()
+            cy.get('[data-test="test-blog-samita123-Second-Blog"]')
+              .click()
+              .wait(1000)
+              .click()
+              .wait(1000)
+              .click()
+              .wait(1000)
+              .click()
+            cy.get('.blog_container').eq(0).should('contain', 'Second Blog')
+            cy.get('.blog_container').eq(1).should('contain', 'FirstBlog')
           })
         })
       })

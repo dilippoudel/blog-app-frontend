@@ -2,7 +2,7 @@ import { useState } from 'react'
 import blogService from '../../services/blogs'
 import PropTypes from 'prop-types'
 import './Blog.css'
-const Blog = ({ blog, blogId, user, onSubmit }) => {
+const Blog = ({ blog, blogId, user, onSubmit, userDetails }) => {
   const [visible, setVisible] = useState(false)
   const showWhenVisible = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
@@ -14,6 +14,7 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
       await blogService.deleteBlogById(id)
     }
   }
+  const testPrefix = `${userDetails.username}-${blog.title.replace(/ /g, '-')}`
   return (
     <div className="blog_container">
       <div className="blog_title">
@@ -27,7 +28,11 @@ const Blog = ({ blog, blogId, user, onSubmit }) => {
         </p>
         <p>
           Likes: {blog.likes}{' '}
-          <button id="like" onClick={() => onSubmit(blog.likes, blogId)}>
+          <button
+            id="like"
+            data-test={'test-blog-' + testPrefix}
+            onClick={() => onSubmit(blog.likes, blogId)}
+          >
             Like
           </button>
         </p>
@@ -47,5 +52,6 @@ Blog.prototype = {
   blog: PropTypes.object.isRequired,
   blogId: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  userDetails: PropTypes.object.isRequired,
 }
 export default Blog
